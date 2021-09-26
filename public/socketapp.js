@@ -42,6 +42,29 @@ $(document).ready(() => {
     }
   });
 
+  $("#btnCopy").click(() => {
+    const dataOutput = $("#taOutput").val();
+    if (dataOutput) {
+      // $("#noidung").html("Đang ấy ấy chờ xíu nhé...");
+      console.log("có data");
+      $("#taOutput").focus();
+      $("#taOutput").select();
+
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        $("#noidung").html('COPY ' + msg);
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+      
+      
+    }else{
+      $("#noidung").html("ủa copy cái gì thế?");
+
+    }
+  });
+
   function requestInfo(token) {
     $.get({
       url: "https://pub.masoffer.com/api/extension/info",
