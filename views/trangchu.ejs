@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+
+    <script src="jquery.js"></script>
+    <script src="jquery-cookie.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="socketapp.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="layout.css" />
+  </head>
+  <body>
+      
+    <header>
+    <div class="title">
+        <h1>CHUYỂN ĐỔI LINK THẦN TỐC</h1>
+        <p id="alert"></p>
+    </div>
+    
+    <div class="checkApi">
+        <input
+      type="text"
+      class="form-control"
+      id="api_token"
+      placeholder="API Token của bạn"/>
+      <button id="btnLuu">Check token</button>
+
+    </div>
+</header>
+    <textarea id="taInput"></textarea>
+    <button id="mrA">CHUYỂN ĐỔI</button>
+    <h2>Thông báo: <span id="noidung"></span></h2>
+    <textarea id="taOutput"></textarea>
+  </body>
+</html>

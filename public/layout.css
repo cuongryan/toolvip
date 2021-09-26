@@ -1,0 +1,58 @@
+html {
+    height: 100%;
+  }
+
+body {
+    height: 100%;
+}
+
+textarea {
+    height: 30%;
+    width: 100%;
+}
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #16a1e7;
+    margin: 10px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.title{
+    width: 60%;
+    
+}
+.title h1{
+    color: orangered;
+}
+
+.checkApi {
+    margin-left: auto;
+    width: 40%;
+    text-align: right;   
+     align-self: center;
+}
+.checkApi input {
+    width: 70%;
+}
+
+header {
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    header {
+      display: block;
+    }
+    .checkApi {
+        width: 100%;
+        text-align: left;   
+         align-self: center;
+    }
+    .title{
+        width: 100%;
+        
+    }
+  }
