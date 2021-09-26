@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import request from "sync-request";
 import cache from "memory-cache";
 import { url } from "inspector";
+import { hostname } from "os";
 
 //variable
 const port = process.env.PORT || 3100;
@@ -60,7 +61,7 @@ function changeContent(data) {
     
   }).getBody()).data.offers;
   }catch(error){
-    return "Token error"+error
+    return "Token error: F5 đi nè!"+error
   }
   
 
@@ -73,14 +74,16 @@ function changeContent(data) {
     } catch (error) {
       return "ERROR_Link_nhu_sh*t: "+ e;
     }
-    console.log(oldUrl.hostname);
+
+    let hostname = oldUrl.hostname.split(".");
+    let nameHost = hostname[hostname.length-2];
     
-    const offersOfUrls = offers.filter(offer => offer.domain.includes(oldUrl.hostname));
+    const offersOfUrls = offers.filter(offer => offer.domain.includes(nameHost));
     let bestOffersOfUrl;
     if(offersOfUrls.length!=0){
       bestOffersOfUrl = offersOfUrls[offersOfUrls.length-1].offer_id;
     }else{
-      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY"+ oldUrl.hostname +oldUrl.host;
+      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY"+ oldUrl.hostname;
     }
     
 
