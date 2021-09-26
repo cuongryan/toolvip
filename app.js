@@ -59,8 +59,8 @@ function changeContent(data) {
     json: {token:data.api_token},
     
   }).getBody()).data.offers;
-  }catch{
-    return "Token error"
+  }catch(error){
+    return "Token error"+error
   }
   
 
@@ -73,13 +73,14 @@ function changeContent(data) {
     } catch (error) {
       return "ERROR_Link_nhu_sh*t: "+ e;
     }
+    console.log(oldUrl.hostname);
     
     const offersOfUrls = offers.filter(offer => offer.domain.includes(oldUrl.hostname));
     let bestOffersOfUrl;
     if(offersOfUrls.length!=0){
       bestOffersOfUrl = offersOfUrls[offersOfUrls.length-1].offer_id;
     }else{
-      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY"+ oldUrl;
+      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY"+ oldUrl.hostname +oldUrl.host;
     }
     
 
