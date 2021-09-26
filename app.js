@@ -35,57 +35,72 @@ io.on("connection", (socket) => {
   });
 });
 
-// function cacheInit(socket){
-//   const cacheData = cache.get('publisher');
-//   if(cacheData){
-//     console.log("có dữ liệu:"+cacheData.api_token);
-//     socket.emit("Server-send-cache", cacheData);
-//   }else{
-//     console.log("đã thêm mới dữ liệu");
-//     cache.put('publisher',{"api_token": "1234s"});
-//   }
-// }
+
 
 function changeContent(data) {
   const exp = /(https?:\/\/[^\s]+)/g;
-  
-  let offers ;
-  try{
-    offers = JSON.parse(request('POST','https://pub.masoffer.com/api/extension/info',
-  {
-    headers: {
-      Authorization: data.api_token,
-      "Content-Type": "application/json",
-    },
-    json: {token:data.api_token},
-    
-  }).getBody()).data.offers;
-  }catch(error){
-    return "Token error: F5 đi nè!"+error
-  }
-  
 
-  
+  let offers;
+  try {
+    offers = JSON.parse(
+      request("POST", "https://pub.masoffer.com/api/extension/info", {
+        headers: {
+          Authorization: data.api_token,
+          "Content-Type": "application/json",
+        },
+        json: { token: data.api_token },
+      }).getBody()
+    ).data.offers;
+  } catch (error) {
+    return "Token error: F5 đi nè!" + error;
+  }
 
   let dataOutput = data.data.replace(exp, (e) => {
+
+    let cacheFinishUrl 
+      try{
+        cacheFinishUrl = cache.get(
+          data.api_token
+          +data.data.split(" ").slice(0, 3).join("_")
+          +e);
+      }catch{
+        console.log("error cache fullUrlFinish!!!");
+      }
+      if(cacheFinishUrl){
+        return cacheFinishUrl;
+      }
+
     let oldUrl;
+    let cacheUrl;
     try {
-      oldUrl = new URL(request("GET", e).url);
-    } catch (error) {
-      return "ERROR_Link_nhu_sh*t: "+ e;
+      cacheUrl = cache.get(e);
+    } catch {
+      console.log("error cache!!!");
+    }
+
+    if (cacheUrl) {
+      oldUrl = cacheUrl;
+    } else {
+      try {
+        oldUrl = new URL(request("GET", e).url);
+        cache.put(e, oldUrl);
+      } catch (error) {
+        return "ERROR_Link_nhu_sh*t: " + e;
+      }
     }
 
     let hostname = oldUrl.hostname.split(".");
-    let nameHost = hostname[hostname.length-2];
-    
-    const offersOfUrls = offers.filter(offer => offer.domain.includes(nameHost));
+    let nameHost = hostname[hostname.length - 2];
+
+    const offersOfUrls = offers.filter((offer) =>
+      offer.domain.includes(nameHost)
+    );
     let bestOffersOfUrl;
-    if(offersOfUrls.length!=0){
-      bestOffersOfUrl = offersOfUrls[offersOfUrls.length-1].offer_id;
-    }else{
-      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY"+ oldUrl.hostname;
+    if (offersOfUrls.length != 0) {
+      bestOffersOfUrl = offersOfUrls[offersOfUrls.length - 1].offer_id;
+    } else {
+      return "DOMAIN_NAY_CHUA_DUOC_DANG_KY" + oldUrl.hostname;
     }
-    
 
     let linkData = {
       publisher_id: data.userId,
@@ -97,7 +112,7 @@ function changeContent(data) {
         aff_sub1: "toolVip",
         aff_sub2: "",
         aff_sub3: "",
-        aff_sub4: data.data.split(' ').slice(0,3).join('_'),
+        aff_sub4: data.data.split(" ").slice(0, 3).join("_"),
       },
     };
 
@@ -109,22 +124,26 @@ function changeContent(data) {
       json: linkData,
     };
 
-  
-   try {
-    const returnData = JSON.parse(
-      request(
-        "POST",
-        "https://pub.masoffer.com/api/extension/generate-link",
-        options
-      ).getBody()
-    );
-    const newUrl = returnData.data.short_url;
-    return newUrl;
-   } catch (error) {
-    return "ERROR_Link_chua_chuyen: " + e;
-   }
-   
+    try {
+      const returnData = JSON.parse(
+        request(
+          "POST",
+          "https://pub.masoffer.com/api/extension/generate-link",
+          options
+        ).getBody()
+      );
+      const newUrl = returnData.data.short_url;
+
+      cache.put(
+        data.api_token
+        +data.data.split(" ").slice(0, 3).join("_")
+        +e,newUrl);
+
+      return newUrl;
+    } catch (error) {
+      return "ERROR_Link_chua_chuyen: " + e;
+    }
   });
-  // console.log(dataOutput);
+  
   return dataOutput;
 }
