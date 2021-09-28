@@ -38,6 +38,9 @@ io.on("connection", (socket) => {
 
 
 function changeContent(data) {
+
+  const dateNow = (new Date()).toLocaleDateString();
+
   const exp = /(https?:\/\/[^\s]+)/g;
 
   let offers;
@@ -112,7 +115,7 @@ function changeContent(data) {
         aff_sub1: "toolVip",
         aff_sub2: "",
         aff_sub3: "",
-        aff_sub4: data.data.split(" ").slice(0, 3).join("_"),
+        aff_sub4: dateNow+": "+data.data.split(" ").slice(0, 3).join("_"),
       },
     };
 
