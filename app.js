@@ -16,9 +16,6 @@ app.get("/", (req, res) => {
   res.render("trangchu");
 });
 
-app.get("/baocao", (req, res) => {
-  res.render("baocao");
-});
 
 const server = createServer(app);
 const io = new Server(server, {});
