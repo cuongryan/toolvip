@@ -86,9 +86,10 @@ button {
 
 
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 767px) {
     header {
       display: block;
+      height:auto;
     }
     .checkApi {
         width: 100%;
@@ -99,4 +100,8 @@ button {
         width: 100%;
         
     }
+    header, section, aside {
+        width: 100%;
+    }
+
   }
