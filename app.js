@@ -39,7 +39,8 @@ io.on("connection", (socket) => {
 
 function changeContent(data) {
 
-  const dateNow = (new Date()).toLocaleDateString();
+  const dateTime = new Date();
+  const dateNow = dateTime.getFullYear()+"-"+(dateTime.getMonth()+1)+"-"+dateTime.getDate();
 
   const exp = /(https?:\/\/[^\s]+)/g;
 
