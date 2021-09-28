@@ -1,10 +1,44 @@
+*{
+    box-sizing: border-box;
+}
 html {
-    height: 100%;
+    height: 95%;
+    width: 98%;
+    align-self: center;
+    
   }
 
 body {
+    margin: 1em;
+    display: flex;
+    flex-wrap: wrap;
     height: 100%;
+    width: 100%;
 }
+header,section,aside{
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px -5px #777;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+header {
+   
+    display: flex;
+    width: 100%;
+    height: 20%;
+}
+section {
+
+    width: 67%;
+    height: 68%;
+}
+aside{
+
+    width: 30%;
+    height: 68%;
+}
+
 
 textarea {
     height: 30%;
@@ -21,7 +55,7 @@ button {
 }
 
 .title{
-    width: 60%;
+    width: 50%;
     
 }
 .title h1{
@@ -30,17 +64,14 @@ button {
 
 .checkApi {
     margin-left: auto;
-    width: 40%;
+    width: 50%;
     text-align: right;   
-     align-self: center;
 }
 .checkApi input {
     width: 70%;
 }
 
-header {
-    display: flex;
-}
+
 
 @media only screen and (max-width: 600px) {
     header {

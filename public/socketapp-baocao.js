@@ -1,102 +1,5 @@
 $(document).ready(() => {
   const socket = io("/");
-  if ($.cookie("userId")) {
-    showDataFromCookie();
-  } else {
-    console.log("chuwa ton tai cookie");
-  }
-
-  $("#btnLuu").click(() => {
-    const value = $("#api_token").val();
-    if (value) {
-      $("#alert").html(`Đang kiểm tra ...`);
-      requestInfo(value);
-    }else
-    {
-      showDataFromCookie();
-    }
-  });
-
-  socket.on("Server-send-data", (data) => {
-    $("#noidung").html("Thành công...");
-    $("#taOutput").html(data);
-  });
-
-  //   socket.on("Server-send-cache", (data) => {
-  //     $("#api_token").val(data.api_token);
-  //     console.log(data.api_token);
-  //   });
-
-  $("#mrA").click(() => {
-    const dataInput = $("#taInput").val();
-    if (dataInput) {
-      $("#noidung").html("Đang ấy ấy chờ xíu nhé...");
-      socket.emit("Client-send-data", {
-        data: dataInput,
-        api_token: $.cookie("api_token"),
-        userId: $.cookie("userId"),
-        userName: $.cookie("userName"),
-      });
-    }else{
-      $("#noidung").html("Chưa nhập nội dung kìa cha nội...");
-    }
-  });
-
-  $("#btnCopy").click(() => {
-    const dataOutput = $("#taOutput").val();
-    if (dataOutput) {
-      // $("#noidung").html("Đang ấy ấy chờ xíu nhé...");
-      console.log("có data");
-      $("#taOutput").focus();
-      $("#taOutput").select();
-
-      try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        $("#noidung").html('COPY ' + msg);
-      } catch (err) {
-        console.error('Fallback: Oops, unable to copy', err);
-      }
-      
-      
-    }else{
-      $("#noidung").html("ủa copy cái gì thế?");
-
-    }
-  });
-
-  function requestInfo(token) {
-    $.get({
-      url: "https://pub.masoffer.com/api/extension/info",
-      data: {
-        token: token,
-      },
-      success: (response) => {
-        if (response.status == 200) {
-          let now = new Date().toLocaleString();
-
-          $.cookie("api_token", token);
-          $.cookie("userName", response.data.user.name);
-          $.cookie("userId", response.data.user.refcode);
-          $.cookie("last_fetch", now);
-
-          showDataFromCookie();
-        } else {
-          console.log("error1");
-        }
-      },
-      error: () => {
-        console.log("error2");
-      },
-    });
-  }
-
-  function showDataFromCookie() {
-    $("#api_token").val($.cookie("api_token"));
-    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("userName")} `);
-    const date2ngayTruoc = moment().subtract(2, "days").format("YYYYMMDD");
-    getDataFromAPI(date2ngayTruoc,date2ngayTruoc);
-  }
 
   $("#demo").daterangepicker(
     {
@@ -141,8 +44,8 @@ $(document).ready(() => {
       showDropdowns: true,
       alwaysShowCalendars: true,
       parentEl: "body",
-      startDate: moment().subtract(2, "days").format("DD/MM/YYYY"),
-      endDate: moment().subtract(2, "days").format("DD/MM/YYYY"),
+      startDate: "01/09/2021",
+      endDate: "28/09/2021",
       minDate: "01/01/2021",
       maxDate: "1/1/2023",
       drops: "auto",
@@ -159,8 +62,8 @@ $(document).ready(() => {
     $.get({
       url: "https://publisher-api.masoffer.net/transaction",
       data: {
-        pub_id:$.cookie("userId"),
-        token: $.cookie("api_token"),
+        pub_id:"mrcuongvietnam",
+        token: "u4yDw9A6GDFspKlm069GUA==",
         date_from: dateStart,
         date_to: dateEnd
 
@@ -230,17 +133,10 @@ $(document).ready(() => {
     
   
 
-    $('#hoaHongChoDuyet').html(thongKe.hoaHongChoDuyet.toLocaleString());
-    $('#soDonHangChoDuyet').html(thongKe.soDonHangChoDuyet);
-    $('#tongGiaTriChoDuyet').html(thongKe.tongGiaTriChoDuyet.toLocaleString()) ;
-   
-    $('#hoaHongThanhCong').html(thongKe.hoaHongThanhCong.toLocaleString());
-    $('#soDonHangThanhCong').html(thongKe.soDonHangThanhCong);
-    $('#tongGiaTriThanhCong').html(thongKe.tongGiaTriThanhCong.toLocaleString()) ;
-   
-    $('#hoaHongHuy').html(thongKe.hoaHongHuy.toLocaleString());
-    $('#soDonHangHuy').html(thongKe.soDonHangHuy);
-    $('#tongGiaTriHuy').html(thongKe.tongGiaTriHuy.toLocaleString()) ;
+    console.log(`Hoa hồng chờ duyệt: ${thongKe.hoaHongChoDuyet}  So don hang: ${thongKe.soDonHangChoDuyet} Tong gia tri: ${thongKe.tongGiaTriChoDuyet}`);
+    console.log(`Hoa hồng thành công: ${thongKe.hoaHongThanhCong}  So don hang: ${thongKe.soDonHangThanhCong} Tong gia tri: ${thongKe.tongGiaTriThanhCong}`);
+    console.log(`Hoa hồng hủy: ${thongKe.hoaHongHuy}  So don hang: ${thongKe.soDonHangHuy} Tong gia tri: ${thongKe.tongGiaTriHuy}`);
+    
   }
 
 });

@@ -10,33 +10,72 @@
     <script src="socketapp.js"></script>
 
     <link rel="stylesheet" type="text/css" href="layout.css" />
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
   </head>
   <body>
-      
     <header>
-    <div class="title">
-        <h1>CHUYỂN ĐỔI LINK THẦN TỐC V1.0</h1>
+      <div class="title">
+        <h1>TOOL VIP SĂN MÃ V2.0</h1>
         <p id="alert"></p>
-    </div>
-    
-    <div class="checkApi">
+      </div>
+
+      <div class="checkApi">
         <input
-      type="text"
-      class="form-control"
-      id="api_token"
-      placeholder="API Token của bạn"/>
-      <button id="btnLuu">Check token</button>
+          type="text"
+          class="form-control"
+          id="api_token"
+          placeholder="API Token của bạn"
+        />
+        <button id="btnLuu">Check token</button>
+      </div>
+    </header>
+    <section>
+      <h2>GET LINK:</h2>
+      <textarea id="taInput"></textarea>
+      <div>
+        <button id="mrA">CHUYỂN ĐỔI</button>
+        <button id="btnCopy">Copy</button>
+      </div>
+      <h3>Thông báo: <span id="noidung"></span></h3>
 
-    </div>
-</header>
-    <textarea id="taInput"></textarea>
-    <div>
-      <button id="mrA">CHUYỂN ĐỔI</button>
-      <button id="btnCopy">Copy</button>
+      <textarea id="taOutput"></textarea>
+    </section>
+    <aside>
+      <h2>BÁO CÁO:</h2>
+      <input id="demo" />
+      <h3 style="color: #28c76f;">HOA HỒNG CHỜ DUYỆT:</h3>
+      <strong><span id="hoaHongChoDuyet">0</span></strong>
+      <p>
+        Số đơn hàng: <span id="soDonHangChoDuyet">0</span> - Tổng giá trị:
+        <span id="tongGiaTriChoDuyet">0</span>
+      </p>
 
-    </div>
-    <h2>Thông báo: <span id="noidung"></span></h2>
-    
-    <textarea id="taOutput"></textarea>
+      <h3 style="color: #ff9f43;">HOA HỒNG THÀNH CÔNG:</h3>
+      <strong><span id="hoaHongThanhCong">0</span></strong>
+      <p>
+        Số đơn hàng: <span id="soDonHangThanhCong">0</span> - Tổng giá trị:
+        <span id="tongGiaTriThanhCong">0</span>
+      </p>
+
+      <h3 style="color: #ea5455;">HOA HỒNG HỦY:</h3>
+      <strong><span id="hoaHongHuy">0</span></strong>
+      <p>
+        Số đơn hàng: <span id="soDonHangHuy">0</span> - Tổng giá trị:
+        <span id="tongGiaTriHuy">0</span>
+      </p>
+    </aside>
   </body>
 </html>
