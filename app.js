@@ -3,8 +3,6 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import request from "sync-request";
 import cache from "memory-cache";
-import { url } from "inspector";
-import { hostname } from "os";
 
 //variable
 const port = process.env.PORT || 3100;
@@ -18,9 +16,9 @@ app.get("/", (req, res) => {
   res.render("trangchu");
 });
 
-app.get("/baocao", (req,res)=>{
+app.get("/baocao", (req, res) => {
   res.render("baocao");
-})
+});
 
 const server = createServer(app);
 const io = new Server(server, {});
@@ -40,61 +38,70 @@ io.on("connection", (socket) => {
   });
 });
 
-
-
 function changeContent(data) {
-
-  const dateTime = new Date();
-  const dateNow = dateTime.getFullYear()+"-"+(dateTime.getMonth()+1)+"-"+dateTime.getDate();
-
-  const exp = /(https?:\/\/[^\s]+)/g;
+  
 
   let offers;
   try {
-    offers = JSON.parse(
-      request("POST", "https://pub.masoffer.com/api/extension/info", {
-        headers: {
-          Authorization: data.api_token,
-          "Content-Type": "application/json",
-        },
-        json: { token: data.api_token },
-      }).getBody()
-    ).data.offers;
-  } catch (error) {
-    return "Token error: F5 đi nè!" + error;
+    offers = cache.get(data.api_token + "_offers");
+  } catch {
+    console.log("error cache Cache offers!!!");
   }
 
-  let dataOutput = data.data.replace(exp, (e) => {
+  if (!offers) {
+    try {
+      offers = JSON.parse(
+        request("POST", "https://pub.masoffer.com/api/extension/info", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          json: { token: data.api_token },
+        }).getBody()
+      ).data.offers;
 
-    let cacheFinishUrl 
-      try{
-        cacheFinishUrl = cache.get(
-          data.api_token
-          +data.data.split(" ").slice(0, 3).join("_")
-          +e);
-      }catch{
-        console.log("error cache fullUrlFinish!!!");
-      }
-      if(cacheFinishUrl){
-        return cacheFinishUrl;
-      }
+      offers = cache.put(data.api_token + "_offers", offers);
+    } catch (error) {
+      return "Token error: F5 đi nè!" + error;
+    }
+  }
+
+  
+  const dateTime = new Date();
+  const dateNow =
+    dateTime.getFullYear() +
+    "-" +
+    (dateTime.getMonth() + 1) +
+    "-" +
+    dateTime.getDate();
+  const exp = /(https?:\/\/[^\s]+)/g;
+
+  let dataOutput = data.data.replace(exp, (e) => {
+    let cacheFinishUrl;
+    try {
+      cacheFinishUrl = cache.get(
+        data.api_token + data.data.split(" ").slice(0, 3).join("_") + e
+      );
+    } catch {
+      console.log("error cache fullUrlFinish!!!");
+    }
+    if (cacheFinishUrl) {
+      return cacheFinishUrl;
+    }
 
     let oldUrl;
-    let cacheUrl;
+  
     try {
-      cacheUrl = cache.get(e);
+      oldUrl = cache.get(e);
     } catch {
       console.log("error cache!!!");
     }
 
-    if (cacheUrl) {
-      oldUrl = cacheUrl;
-    } else {
+    if (!oldUrl) {
       try {
         oldUrl = new URL(request("GET", e).url);
         cache.put(e, oldUrl);
       } catch (error) {
-        return "ERROR_Link_nhu_sh*t: " + e;
+        return "ERROR_Link_Died_OR_404 => " + e;
       }
     }
 
@@ -121,7 +128,7 @@ function changeContent(data) {
         aff_sub1: "toolVip",
         aff_sub2: "",
         aff_sub3: "",
-        aff_sub4: dateNow+": "+data.data.split(" ").slice(0, 3).join("_"),
+        aff_sub4: dateNow + ": " + data.data.split(" ").slice(0, 3).join("_"),
       },
     };
 
@@ -144,15 +151,15 @@ function changeContent(data) {
       const newUrl = returnData.data.short_url;
 
       cache.put(
-        data.api_token
-        +data.data.split(" ").slice(0, 3).join("_")
-        +e,newUrl);
+        data.api_token + data.data.split(" ").slice(0, 3).join("_") + e,
+        newUrl
+      );
 
       return newUrl;
     } catch (error) {
       return "ERROR_Link_chua_chuyen: " + e;
     }
   });
-  
+
   return dataOutput;
 }

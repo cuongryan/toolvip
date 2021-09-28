@@ -4,6 +4,9 @@ $(document).ready(() => {
     showDataFromCookie();
   } else {
     console.log("chuwa ton tai cookie");
+    $("section").hide(0);
+    $("aside").hide(0);
+
   }
 
   $("#btnLuu").click(() => {
@@ -13,7 +16,11 @@ $(document).ready(() => {
       requestInfo(value);
     }else
     {
-      showDataFromCookie();
+      if ($.cookie("userId")) {
+        showDataFromCookie();
+      } else {
+        $("#alert").html(`Ủa nhập token đi chứ ...`);
+      }
     }
   });
 
@@ -83,6 +90,7 @@ $(document).ready(() => {
           showDataFromCookie();
         } else {
           console.log("error1");
+          $("#alert").html(`Token sai rồi`);
         }
       },
       error: () => {
@@ -96,6 +104,8 @@ $(document).ready(() => {
     $("#alert").html(`${$.cookie("userId")} => ${$.cookie("userName")} `);
     const date2ngayTruoc = moment().subtract(2, "days").format("YYYYMMDD");
     getDataFromAPI(date2ngayTruoc,date2ngayTruoc);
+    $("section").show(1000);
+       $("aside").show(1000);
   }
 
   $("#demo").daterangepicker(
@@ -156,13 +166,17 @@ $(document).ready(() => {
 
 
   function getDataFromAPI(dateStart, dateEnd){
+
+    $("#divThongKe").hide(1000);
+
     $.get({
       url: "https://publisher-api.masoffer.net/transaction",
       data: {
         pub_id:$.cookie("userId"),
         token: $.cookie("api_token"),
         date_from: dateStart,
-        date_to: dateEnd
+        date_to: dateEnd,
+        limit:10000
 
       },
       success: (response) => {
@@ -241,6 +255,7 @@ $(document).ready(() => {
     $('#hoaHongHuy').html(thongKe.hoaHongHuy.toLocaleString());
     $('#soDonHangHuy').html(thongKe.soDonHangHuy);
     $('#tongGiaTriHuy').html(thongKe.tongGiaTriHuy.toLocaleString()) ;
+    $("#divThongKe").show(1000);
   }
 
 });
