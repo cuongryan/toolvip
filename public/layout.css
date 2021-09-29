@@ -74,7 +74,7 @@ button {
     justify-content: flex-end;  
 }
 .checkApi input {
-    width: 100%;
+    width: 50%;
 }
 #divThongKe{
     display: none;

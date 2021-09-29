@@ -107,7 +107,7 @@ $(document).ready(() => {
 
   function showDataFromCookie() {
     $("#api_token").val($.cookie("api_token"));
-    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("userName")} => ${$.cookie("aff2")}`);
+    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("aff2")}`);
     $("#tAff2").val($.cookie('aff2'));
     const date2ngayTruoc = moment().subtract(2, "days").format("YYYYMMDD");
     getDataFromAPI(date2ngayTruoc,date2ngayTruoc);
