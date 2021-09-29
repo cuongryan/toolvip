@@ -1,25 +1,29 @@
 $(document).ready(() => {
   const socket = io("/");
-  if ($.cookie("userId")) {
+  if ($.cookie("userId")&&$.cookie("aff2")) {
     showDataFromCookie();
   } else {
     console.log("chuwa ton tai cookie");
     $("section").hide(0);
     $("aside").hide(0);
-
   }
 
   $("#btnLuu").click(() => {
     const value = $("#api_token").val();
-    if (value) {
+    const aff2 = $("#tAff2").val();
+    if (value&&aff2) {
       $("#alert").html(`Đang kiểm tra ...`);
+      
       requestInfo(value);
+
+      
+
     }else
     {
-      if ($.cookie("userId")) {
+      if ($.cookie("userId")&&$.cookie("aff2")) {
         showDataFromCookie();
       } else {
-        $("#alert").html(`Ủa nhập token đi chứ ...`);
+        $("#alert").html(`Ủa nhập token và nick name đi chứ ...`);
       }
     }
   });
@@ -43,6 +47,7 @@ $(document).ready(() => {
         api_token: $.cookie("api_token"),
         userId: $.cookie("userId"),
         userName: $.cookie("userName"),
+        aff_sub2: $.cookie("aff2")
       });
     }else{
       $("#noidung").html("Chưa nhập nội dung kìa cha nội...");
@@ -86,6 +91,7 @@ $(document).ready(() => {
           $.cookie("userName", response.data.user.name);
           $.cookie("userId", response.data.user.refcode);
           $.cookie("last_fetch", now);
+          $.cookie("aff2",$("#tAff2").val());
 
           showDataFromCookie();
         } else {
@@ -101,11 +107,12 @@ $(document).ready(() => {
 
   function showDataFromCookie() {
     $("#api_token").val($.cookie("api_token"));
-    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("userName")} `);
+    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("userName")} => ${$.cookie("aff2")}`);
+    $("#tAff2").val($.cookie('aff2'));
     const date2ngayTruoc = moment().subtract(2, "days").format("YYYYMMDD");
     getDataFromAPI(date2ngayTruoc,date2ngayTruoc);
     $("section").show(1000);
-       $("aside").show(1000);
+    $("aside").show(1000);
   }
 
   $("#demo").daterangepicker(
@@ -176,7 +183,8 @@ $(document).ready(() => {
         token: $.cookie("api_token"),
         date_from: dateStart,
         date_to: dateEnd,
-        limit:10000
+        limit:10000,
+        aff_sub2: $.cookie("aff2")
 
       },
       success: (response) => {

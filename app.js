@@ -123,7 +123,7 @@ function changeContent(data) {
         offer_id: bestOffersOfUrl,
         url: oldUrl.origin + oldUrl.pathname + oldUrl.search, //"https://shopee.vn/product/329422701/9905688095?af_click_lookback=7d&af_reengagement_window=7d&af_siteid=an_17194710000&af_sub_siteid=614eaadf9cbab90043a2df8f----eXQ_NSw1r9etBVSM_kSAVQ&af_viewthrough_lookback=1d&c=-&d_id=34b8d&is_retargeting=true&pid=affiliates&smtt=0.12008485-1629892077.9&utm_campaign=-&utm_content=614eaadf9cbab90043a2df8f----eXQ_NSw1r9etBVSM_kSAVQ&utm_medium=affiliates&utm_source=an_17194710000",
         aff_sub1: "toolVip",
-        aff_sub2: "",
+        aff_sub2: data.aff_sub2,
         aff_sub3: "",
         aff_sub4: dateNow + ": " + data.data.split(" ").slice(0, 3).join("_"),
       },
