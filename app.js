@@ -76,7 +76,7 @@ function changeContent(data) {
     let cacheFinishUrl;
     try {
       cacheFinishUrl = cache.get(
-        data.api_token + data.data.split(" ").slice(0, 3).join("_") + e
+        data.api_token + data.aff_sub2 + data.data.split(" ").slice(0, 3).join("_") + e
       );
     } catch {
       console.log("error cache fullUrlFinish!!!");
@@ -148,7 +148,7 @@ function changeContent(data) {
       const newUrl = returnData.data.short_url;
 
       cache.put(
-        data.api_token + data.data.split(" ").slice(0, 3).join("_") + e,
+        data.api_token + data.aff_sub2 + data.data.split(" ").slice(0, 3).join("_") + e,
         newUrl
       );
 
