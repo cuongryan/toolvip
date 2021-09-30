@@ -145,7 +145,8 @@ function changeContent(data) {
           options
         ).getBody()
       );
-      const newUrl = returnData.data.short_url;
+      //const newUrl = returnData.data.short_url;
+      const newUrl = "https://sanma.vn/a/"+returnData.data.path_url.slice(2);
 
       cache.put(
         data.api_token + data.aff_sub2 + data.data.split(" ").slice(0, 3).join("_") + e,
