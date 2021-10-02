@@ -249,20 +249,20 @@ $(document).ready(() => {
       soDonHang= transactions.length; 
     }
 
-    
+    const tilehoahong = 0.6;
   
 
-    $('#hoaHongChoDuyet').html(thongKe.hoaHongChoDuyet.toLocaleString());
+    $('#hoaHongChoDuyet').html(thongKe.hoaHongChoDuyet*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 }));
     $('#soDonHangChoDuyet').html(thongKe.soDonHangChoDuyet);
-    $('#tongGiaTriChoDuyet').html(thongKe.tongGiaTriChoDuyet.toLocaleString()) ;
+    $('#tongGiaTriChoDuyet').html(thongKe.tongGiaTriChoDuyet*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 })) ;
    
-    $('#hoaHongThanhCong').html(thongKe.hoaHongThanhCong.toLocaleString());
+    $('#hoaHongThanhCong').html(thongKe.hoaHongThanhCong*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 }));
     $('#soDonHangThanhCong').html(thongKe.soDonHangThanhCong);
-    $('#tongGiaTriThanhCong').html(thongKe.tongGiaTriThanhCong.toLocaleString()) ;
+    $('#tongGiaTriThanhCong').html(thongKe.tongGiaTriThanhCong*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 })) ;
    
-    $('#hoaHongHuy').html(thongKe.hoaHongHuy.toLocaleString());
+    $('#hoaHongHuy').html(thongKe.hoaHongHuy*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 }));
     $('#soDonHangHuy').html(thongKe.soDonHangHuy);
-    $('#tongGiaTriHuy').html(thongKe.tongGiaTriHuy.toLocaleString()) ;
+    $('#tongGiaTriHuy').html(thongKe.tongGiaTriHuy*tilehoahong.toLocaleString("vi",{ maximumFractionDigits: 0 })) ;
     $("#divThongKe").show(1000);
   }
 
