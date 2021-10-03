@@ -65,7 +65,9 @@ function changeContent(data) {
   
   const dateTime = new Date();
   const dateNow = (dateTime.getFullYear()-2000).toString() 
-  + "-"+ (dateTime.getMonth() + 1).toString().padStart(2,'0') + "-"+(dateTime.getDate()).toString().padStart(2,'0');
+  + "-" + (dateTime.getMonth() + 1).toString().padStart(2,'0') 
+  + "-" + dateTime.getDate().toString().padStart(2,'0')
+  + ":" + dateTime.getHours().toString().padStart(2,"0");
  
   const exp = /(https?:\/\/[^\s]+)/g;
 
