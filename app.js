@@ -122,7 +122,7 @@ function changeContent(data) {
         aff_sub1: "toolVip",
         aff_sub2: data.aff_sub2,
         aff_sub3: "",
-        aff_sub4: dateNow + ": " + data.data.slice(0, 40),
+        aff_sub4: dateNow + ": " + data.data.slice(0, 30),
       },
     };
 
