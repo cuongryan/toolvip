@@ -6,7 +6,7 @@ $(document).ready(() => {
   if ($.cookie("userId")&&$.cookie("aff2")) {
     showDataFromCookie();
   } else {
-    console.log("chuwa ton tai cookie");
+    //chưa ton tai cookie 
     $("section").hide(0);
     $("aside").hide(0);
     $("#btnLogout").hide(0);
@@ -42,13 +42,14 @@ $(document).ready(() => {
       if ($.cookie("userId")&&$.cookie("aff2")) {
         showDataFromCookie();
       } else {
-        $("#alert").html(`Ủa nhập Nick name đi chứ ...`);
+        $("#alert").html(`Vui lòng nhập chính xác Nick Name ...`);
       }
     }
   });
 
   socket.on("Server-send-data", (data) => {
-    $("#noidung").html("Thành công...");
+    $("#noidung").html("Đã xong!");
+    $(".dot-elastic").hide(10);
     $("#taOutput").html(data);
   });
 
@@ -60,7 +61,8 @@ $(document).ready(() => {
   $("#mrA").click(() => {
     const dataInput = $("#taInput").val();
     if (dataInput) {
-      $("#noidung").html("Đang ấy ấy chờ xíu nhé...");
+      $("#noidung").html("Đang thêm "+$.cookie("aff2")+" vào link, chờ xíu...");
+      $(".dot-elastic").show(10);
       socket.emit("Client-send-data", {
         data: dataInput,
         api_token: $.cookie("api_token"),
@@ -69,7 +71,7 @@ $(document).ready(() => {
         aff_sub2: $.cookie("aff2")
       });
     }else{
-      $("#noidung").html("Chưa nhập nội dung kìa cha nội...");
+      $("#noidung").html("Vui lòng nhập nội dung hoặc link vào khung ở trên");
     }
   });
 
