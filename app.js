@@ -64,12 +64,9 @@ function changeContent(data) {
 
   
   const dateTime = new Date();
-  const dateNow =
-    dateTime.getFullYear() +
-    "-" +
-    (dateTime.getMonth() + 1) +
-    "-" +
-    dateTime.getDate();
+  const dateNow = (dateTime.getFullYear()-2000).toString() 
+  + "-"+ (dateTime.getMonth() + 1).toString().padStart(2,'0') + "-"+(dateTime.getDate()).toString().padStart(2,'0');
+ 
   const exp = /(https?:\/\/[^\s]+)/g;
 
   let dataOutput = data.data.replace(exp, (e) => {
@@ -125,7 +122,7 @@ function changeContent(data) {
         aff_sub1: "toolVip",
         aff_sub2: data.aff_sub2,
         aff_sub3: "",
-        aff_sub4: dateNow + ": " + data.data.split(" ").slice(0, 3).join("_"),
+        aff_sub4: dateNow + ": " + data.data.slice(0, 40),
       },
     };
 
