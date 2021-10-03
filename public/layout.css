@@ -75,6 +75,11 @@ button {
 }
 .checkApi input {
     width: 50%;
+    border-radius: 10px;
+    border: none;
+    height: 3em;
+    align-self: center;
+    box-shadow: 0 0 10px -3px #777;
 }
 #divThongKe{
     display: none;

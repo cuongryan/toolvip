@@ -1,20 +1,39 @@
 $(document).ready(() => {
   const socket = io("/");
+  $("#api_token").val("1eUgQivMUltyDu/1laj2fA==");
+  $("#api_token").hide();
+
   if ($.cookie("userId")&&$.cookie("aff2")) {
     showDataFromCookie();
   } else {
     console.log("chuwa ton tai cookie");
     $("section").hide(0);
     $("aside").hide(0);
+    $("#btnLogout").hide(0);
   }
 
-  $("#btnLuu").click(() => {
+  $("#btnLogout").click(()=>{
+    $("section").hide(1000);
+    $("aside").hide(1000);
+    $("#alert").hide(0);
+    $("#btnLogout").hide(0);
+    $("#btnLogin").show(0);
+    $("#tAff2").show(0);
+    $.removeCookie("userId");
+    $.removeCookie("aff2")
+    
+    
+
+  })
+
+  $("#btnLogin").click(() => {
     const value = $("#api_token").val();
     const aff2 = $("#tAff2").val();
     if (value&&aff2) {
       $("#alert").html(`Đang kiểm tra ...`);
       
       requestInfo(value);
+      
 
       
 
@@ -23,7 +42,7 @@ $(document).ready(() => {
       if ($.cookie("userId")&&$.cookie("aff2")) {
         showDataFromCookie();
       } else {
-        $("#alert").html(`Ủa nhập token và nick name đi chứ ...`);
+        $("#alert").html(`Ủa nhập Nick name đi chứ ...`);
       }
     }
   });
@@ -107,12 +126,19 @@ $(document).ready(() => {
 
   function showDataFromCookie() {
     $("#api_token").val($.cookie("api_token"));
-    $("#alert").html(`${$.cookie("userId")} => ${$.cookie("aff2")}`);
+    $("#alert").html(`Tài khoản: <strong style="color: crimson; font-size: 20px;">${$.cookie("aff2")}</strong>`);
     $("#tAff2").val($.cookie('aff2'));
     const date2ngayTruoc = moment().subtract(2, "days").format("YYYYMMDD");
     getDataFromAPI(date2ngayTruoc,date2ngayTruoc);
     $("section").show(1000);
     $("aside").show(1000);
+    $("#btnLogin").hide(0);
+    $("#tAff2").hide(0);
+    $("#alert").show(0);
+    $("#btnLogout").show(0);
+    
+   
+    
   }
 
   $("#demo").daterangepicker(
@@ -249,7 +275,12 @@ $(document).ready(() => {
       soDonHang= transactions.length; 
     }
 
-    const tilehoahong = 0.6;
+    let tilehoahong = 0.6;
+    if ($.cookie("aff2")==="Thu Giang"){
+      tilehoahong = 0.5;
+    }else if($.cookie("aff2")==="mrcuong"||$.cookie("aff2")==="QuangPhu"){
+      tilehoahong = 1;
+    }
   
 
     $('#hoaHongChoDuyet').html((thongKe.hoaHongChoDuyet*tilehoahong).toLocaleString("vi",{ maximumFractionDigits: 0 }));
