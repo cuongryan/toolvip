@@ -1,7 +1,13 @@
 $(document).ready(() => {
   const socket = io("/");
-  $("#api_token").val("1eUgQivMUltyDu/1laj2fA==");
+  $("#api_token").val("u4yDw9A6GDFspKlm069GUA==");
   $("#api_token").hide();
+  if($.cookie("userId") !== "mrcuongvietnam"){
+    var cookies = $.cookie();
+    for(var cookie in cookies) {
+    $.removeCookie(cookie);
+}
+  }
 
   if ($.cookie("userId")&&$.cookie("aff2")) {
     showDataFromCookie();
@@ -33,9 +39,6 @@ $(document).ready(() => {
       $("#alert").html(`Đang kiểm tra ...`);
       
       requestInfo(value);
-      
-
-      
 
     }else
     {
