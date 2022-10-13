@@ -72,7 +72,7 @@ function changeContent(data) {
   const exp = /(https?:\/\/[^\s]+)/g;
 
   let dataOutput = data.data.replace(exp, (e) => {
-    e=e.replace(/nhamit.com\/|gox.li\/|sanma.vn\/|sanma.vn\/a\//gi,"sanma.vn/");
+    e=e.replace(/nhamit.com\/|gox.li\/|sanma.vn\/|sanma.vn\/a\//gi,"rutgon.me/mo");
     let cacheFinishUrl;
     try {
       cacheFinishUrl = cache.get(
@@ -96,6 +96,12 @@ function changeContent(data) {
     if (!oldUrl) {
       try {
         oldUrl = new URL(request("GET", e).url);
+        
+        if(oldUrl.hostname=="rutgon.me"){
+          console.log(oldUrl.searchParams.get('url'))
+          oldUrl = new URL(oldUrl.searchParams.get('url'))
+        }
+        
         cache.put(e, oldUrl);
       } catch (error) {
         return "ERROR_Link_Died_OR_404 => " + e;
