@@ -72,7 +72,7 @@ function changeContent(data) {
   const exp = /(https?:\/\/[^\s]+)/g;
 
   let dataOutput = data.data.replace(exp, (e) => {
-    e=e.replace(/nhamit.com\/|gox.li\/|sanma.vn\/|sanma.vn\/a\//gi,"rutgon.me/mo");
+    e=e.replace(/nhamit.com\/|gox.li\/|sanma.vn\/|sanma.vn\/a\//gi,"sanma.vn/");
     let cacheFinishUrl;
     try {
       cacheFinishUrl = cache.get(
