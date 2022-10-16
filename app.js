@@ -172,5 +172,5 @@ function changeContent(data) {
     }
   });
 
-  return dataOutput +"\n#TH2106";
+  return dataOutput +"\n#th-2106";
 }
