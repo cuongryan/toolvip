@@ -172,5 +172,5 @@ function changeContent(data) {
     }
   });
 
-  return dataOutput +"\n#CWM #th-2106";
+  return dataOutput +"\n#th-2106";
 }
