@@ -4,8 +4,4 @@ services:
     type: web
     buildCommand: npm install && npm run build # Lệnh để cài đặt dependencies và xây dựng ứng dụng
     startCommand: npm start # Lệnh để khởi chạy ứng dụng
-    env: # Các biến môi trường của ứng dụng
-      - key: NODE_ENV
-        value: production
-    ports: # Cổng bạn muốn sử dụng cho ứng dụng
-      - port: 8080
+
