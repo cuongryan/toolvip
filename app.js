@@ -157,7 +157,7 @@ function changeContent(data) {
       if(data.aff_sub2==="SpamThanhBinh"||data.aff_sub2==="Spam"){
          newUrl = "https://gox.li/"+returnData.data.path_url.slice(2);
       }else{
-         newUrl = "https://sanma.vn/"+returnData.data.path_url.slice(2);
+         newUrl = "https://rutgon.me/mo"+returnData.data.path_url.slice(2);
       }
       
 
