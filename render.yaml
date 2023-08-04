@@ -1,6 +1,11 @@
 version: 1
 services:
-  - name: web
+  - name: my-express-app
     type: web
-    buildCommand: npm install && npm run build
+    buildCommand: npm install
     startCommand: npm start
+    env:
+      - key: NODE_ENV
+        value: production
+    ports:
+      - port: 8080
