@@ -1,0 +1,9 @@
+version: 1
+services:
+  - name: web
+    dockerfile: Dockerfile
+    env: # (Tùy chọn) Các biến môi trường của ứng dụng
+      - key: NODE_ENV
+        value: production
+    ports: # Cổng bạn muốn sử dụng cho ứng dụng
+      - 8080:8080
