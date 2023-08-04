@@ -192,7 +192,7 @@ $(document).ready(() => {
       startDate: moment().subtract(2, "days").format("DD/MM/YYYY"),
       endDate: moment().subtract(2, "days").format("DD/MM/YYYY"),
       minDate: "01/01/2021",
-      maxDate: "1/1/2023",
+      maxDate: "1/1/2025",
       drops: "auto",
     },
     function (start, end, label) {
