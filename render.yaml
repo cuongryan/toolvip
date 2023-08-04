@@ -1,9 +1,10 @@
 version: 1
 services:
-  - name: web
+  - type: web # Đây là trường "type" xác định dịch vụ của bạn là web service
+    name: web
     dockerfile: Dockerfile
-    env: # (Tùy chọn) Các biến môi trường của ứng dụng
+    env:
       - key: NODE_ENV
         value: production
-    ports: # Cổng bạn muốn sử dụng cho ứng dụng
+    ports:
       - 8080:8080
