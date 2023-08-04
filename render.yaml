@@ -2,10 +2,6 @@ version: 1
 services:
   - name: koltool
     type: web
+    runtime: node
     buildCommand: npm install
     startCommand: npm start
-    env:
-      - key: NODE_ENV
-        value: production
-    ports:
-      - port: 8080
