@@ -1,6 +1,6 @@
 version: 1
 services:
-  - name: app
+  - name: koltool
     type: web
     buildCommand: npm install
     startCommand: npm start
