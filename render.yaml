@@ -4,8 +4,3 @@ services:
     type: web
     buildCommand: npm install
     startCommand: npm start
-    env:
-      - key: NODE_ENV
-        value: production
-    ports:
-      - port: 8080
